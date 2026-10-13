@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#2563eb" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Ôn Thi Tiếng Anh Thạc Sĩ HCMUS 2026 (Đợt 2)</title>
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body class="theme-dark">
+  <!-- Top App Bar -->
+  <header class="app-header">
+    <div class="header-left">
+      <div class="app-logo">EN</div>
+      <div>
+        <h1 class="app-title">HCMUS Master English 2026</h1>
+        <p class="app-subtitle">Ôn thi Cao học ĐH Khoa học Tự nhiên - ĐHQG-HCM</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button id="btnViewMode" class="icon-btn" title="Chuyển chế độ Khung Điện Thoại Android / Toàn màn hình">
+        📱 <span class="btn-label">Chế độ Mobile</span>
+      </button>
+      <button id="btnBookmarks" class="icon-btn" title="Sổ tay câu hay sai / Đã lưu">
+        ⭐ <span id="bookmarkCount" class="badge">0</span>
+      </button>
+      <button id="btnTheme" class="icon-btn" title="Đổi giao diện Sáng / Tối">
+        🌙
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Shell (supports both Fullscreen and Android Phone Frame mode) -->
+  <div id="appShell" class="app-shell">
+    <!-- Exam Timer Banner (Active only in Mock Exam mode) -->
+    <div id="examTimerBar" class="exam-timer-bar hidden">
+      <div class="timer-info">
+        <span class="pulse-dot"></span>
+        <strong id="examTimerTitle">Thi thử bấm giờ</strong>
+        <span id="examClock" class="timer-clock">90:00</span>
+      </div>
+      <div class="timer-actions">
+        <span id="examAnsweredCount" class="timer-progress">0/70 câu</span>
+        <button id="btnSubmitExam" class="btn-primary btn-sm">Nộp bài & Chấm điểm</button>
+        <button id="btnExitExam" class="btn-outline btn-sm">Thoát</button>
+      </div>
+    </div>
+
+    <!-- Main Content Container -->
+    <main id="mainContent" class="main-content">
+      <!-- Dynamic view rendered by app.js -->
+    </main>
+
+    <!-- Bottom Navigation Bar (Material 3 / Flutter NavigationBar) -->
+    <nav class="bottom-nav">
+      <button class="nav-item active" data-tab="dashboard">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-label">Tổng quan</span>
+      </button>
+      <button class="nav-item" data-tab="vocab">
+        <span class="nav-icon">📖</span>
+        <span class="nav-label">Từ Vựng</span>
+      </button>
+      <button class="nav-item" data-tab="tests">
+        <span class="nav-icon">📝</span>
+        <span class="nav-label">10 Đề Thi</span>
+      </button>
+      <button class="nav-item" data-tab="writing">
+        <span class="nav-icon">✍️</span>
+        <span class="nav-label">Viết Câu</span>
+      </button>
+      <button class="nav-item" data-tab="grammar">
+        <span class="nav-icon">📚</span>
+        <span class="nav-label">Ngữ Pháp</span>
+      </button>
+      <button class="nav-item" data-tab="speaking">
+        <span class="nav-icon">🗣️</span>
+        <span class="nav-label">Speaking</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Modal for Bookmarks / Saved Questions / Score Report -->
+  <div id="appModal" class="modal-backdrop hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modalTitle">Chi tiết</h3>
+        <button id="btnCloseModal" class="icon-btn">✕</button>
+      </div>
+      <div id="modalBody" class="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Data Scripts -->
+  <script src="./data/vocabulary_bank.js"></script>
+  <script src="./data/tests_1_to_3.js"></script>
+  <script src="./data/tests_4_to_6.js"></script>
+  <script src="./data/tests_7_to_10.js"></script>
+  <script src="./data/grammar_practice.js"></script>
+  <script src="./data/writing_practice.js"></script>
+  <script src="./data/speaking_topics.js"></script>
+  <!-- Main Application Logic -->
+  <script src="./app.js"></script>
+</body>
+</html>
