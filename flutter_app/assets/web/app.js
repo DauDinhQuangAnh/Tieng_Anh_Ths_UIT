@@ -1751,7 +1751,9 @@
     }
 
     if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
-      navigator.serviceWorker.register('./sw.js').catch(() => {});
+      navigator.serviceWorker.register('./sw.js').then(reg => {
+        reg.update();
+      }).catch(() => {});
     }
 
     render();
