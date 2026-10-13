@@ -562,51 +562,46 @@
     const mode = state.vocabViewMode || 'flashcard';
 
     return `
-      <!-- Header Stats & Search -->
-      <div class="card" style="background: linear-gradient(135deg, #1e3a8a, #0284c7); color: #fff; border:none;">
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
-          <div>
-            <h2 style="font-size:20px; font-weight:800;">📖 Ngân Hàng Từ Vựng Trọng Tâm 10 Đề Thi HCMUS</h2>
-            <p style="font-size:13px; opacity:0.92; margin-top:2px;">
-              Kho ${allVocab.length} từ vựng, phrasal verbs, collocations và liên từ xuất hiện trực tiếp trong đề thi Thạc sĩ
-            </p>
+      <!-- Compact Unified Vocabulary Header -->
+      <div class="card" style="padding:14px 18px; margin-bottom:12px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div style="width:36px; height:36px; border-radius:10px; background:linear-gradient(135deg, #2563eb, #38bdf8); display:flex; align-items:center; justify-content:center; font-size:18px;">📖</div>
+            <div>
+              <h2 style="font-size:17px; font-weight:800; line-height:1.2;">Ngân Hàng Từ Vựng Trọng Tâm</h2>
+              <div style="font-size:12px; color:var(--text-secondary);">${allVocab.length} từ vựng, collocations & liên từ trích từ 10 đề thi HCMUS</div>
+            </div>
           </div>
-          <div style="display:flex; gap:10px;">
-            <span class="chip" style="background:rgba(255,255,255,0.2); color:#fff; font-size:12px;">⭐ Đã thuộc: ${masteredCount}</span>
-            <span class="chip" style="background:rgba(255,255,255,0.2); color:#fff; font-size:12px;">🔄 Cần ôn: ${Math.max(0, allVocab.length - masteredCount)}</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Controls & Search -->
-      <div class="card" style="padding:14px;">
-        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between; margin-bottom:12px;">
-          <div style="flex:1; min-width:260px; display:flex; gap:8px;">
-            <input
-              type="text"
-              id="vocabSearchInput"
-              class="text-input"
-              placeholder="🔍 Tìm từ tiếng Anh hoặc nghĩa tiếng Việt..."
-              value="${(state.vocabSearchQuery || '').replace(/"/g, '&quot;')}"
-              oninput="setVocabSearch(this.value)"
-            />
-            ${state.vocabSearchQuery ? `<button class="btn-outline btn-sm" onclick="setVocabSearch('')">✕</button>` : ''}
-          </div>
-          <div style="display:flex; gap:6px;">
-            <button class="pill-btn ${mode === 'flashcard' ? 'active' : ''}" onclick="setVocabMode('flashcard')">🃏 Flashcards</button>
-            <button class="pill-btn ${mode === 'list' ? 'active' : ''}" onclick="setVocabMode('list')">📋 Danh sách tra cứu</button>
-            <button class="pill-btn ${mode === 'quiz' ? 'active' : ''}" onclick="setVocabMode('quiz')">🎯 Trắc nghiệm phản xạ</button>
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <span class="chip" style="font-size:11.5px;">⭐ Thuộc: ${masteredCount}/${allVocab.length}</span>
+            <div style="display:flex; gap:4px; background:var(--bg-elevated); padding:3px; border-radius:10px;">
+              <button class="pill-btn btn-sm ${mode === 'flashcard' ? 'active' : ''}" onclick="setVocabMode('flashcard')">🃏 Flashcards</button>
+              <button class="pill-btn btn-sm ${mode === 'list' ? 'active' : ''}" onclick="setVocabMode('list')">📋 Tra cứu</button>
+              <button class="pill-btn btn-sm ${mode === 'quiz' ? 'active' : ''}" onclick="setVocabMode('quiz')">🎯 Trắc nghiệm</button>
+            </div>
           </div>
         </div>
 
-        <!-- Filter Pills -->
-        <div class="pill-bar" style="margin-bottom:0;">
-          <button class="pill-btn ${state.selectedVocabFilter === 'all' ? 'active' : ''}" onclick="setVocabFilter('all')">Tất cả (${allVocab.length})</button>
-          <button class="pill-btn ${state.selectedVocabFilter === 'mastered' ? 'active' : ''}" onclick="setVocabFilter('mastered')">⭐ Đã thuộc (${masteredCount})</button>
-          <button class="pill-btn ${state.selectedVocabFilter === 'unmastered' ? 'active' : ''}" onclick="setVocabFilter('unmastered')">🔄 Cần ôn (${Math.max(0, allVocab.length - masteredCount)})</button>
-          <button class="pill-btn ${state.selectedVocabFilter === 'grammar' ? 'active' : ''}" onclick="setVocabFilter('grammar')">Liên từ & Bẫy ngữ pháp</button>
+        <div style="display:flex; gap:8px; align-items:center; margin-bottom:10px;">
+          <input
+            type="text"
+            id="vocabSearchInput"
+            class="text-input"
+            style="padding:8px 12px; font-size:13px;"
+            placeholder="🔍 Tìm từ tiếng Anh hoặc nghĩa tiếng Việt..."
+            value="${(state.vocabSearchQuery || '').replace(/"/g, '&quot;')}"
+            oninput="setVocabSearch(this.value)"
+          />
+          ${state.vocabSearchQuery ? `<button class="btn-outline btn-sm" onclick="setVocabSearch('')">✕</button>` : ''}
+        </div>
+
+        <div class="pill-bar" style="margin-bottom:0; padding-bottom:4px;">
+          <button class="pill-btn btn-sm ${state.selectedVocabFilter === 'all' ? 'active' : ''}" onclick="setVocabFilter('all')">Tất cả (${allVocab.length})</button>
+          <button class="pill-btn btn-sm ${state.selectedVocabFilter === 'mastered' ? 'active' : ''}" onclick="setVocabFilter('mastered')">⭐ Đã thuộc (${masteredCount})</button>
+          <button class="pill-btn btn-sm ${state.selectedVocabFilter === 'unmastered' ? 'active' : ''}" onclick="setVocabFilter('unmastered')">🔄 Cần ôn (${Math.max(0, allVocab.length - masteredCount)})</button>
+          <button class="pill-btn btn-sm ${state.selectedVocabFilter === 'grammar' ? 'active' : ''}" onclick="setVocabFilter('grammar')">Liên từ / Ngữ pháp</button>
           ${[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n => `
-            <button class="pill-btn ${state.selectedVocabFilter === 'test-' + n ? 'active' : ''}" onclick="setVocabFilter('test-${n}')">Test ${n}</button>
+            <button class="pill-btn btn-sm ${state.selectedVocabFilter === 'test-' + n ? 'active' : ''}" onclick="setVocabFilter('test-${n}')">Test ${n}</button>
           `).join('')}
         </div>
       </div>
@@ -636,17 +631,21 @@
               <span class="chip">${item.testRef || 'HCMUS'}</span>
               <span style="font-size:12px; color:var(--text-secondary);">Thẻ ${idx + 1} / ${filtered.length}</span>
             </div>
-            <div style="text-align:center; padding:18px 0;">
+            <div style="text-align:center; padding:10px 0;">
               <div class="flashcard-word">${item.word}</div>
               <div class="flashcard-ipa">${item.type} ${item.phonetic || ''}</div>
-              <button class="icon-btn" style="margin-top:10px;" onclick="event.stopPropagation(); speakText('${item.word.replace(/'/g, "\\'")}')">
-                🔊 Phát âm chuẩn
+              <button class="icon-btn btn-sm" style="margin-top:8px;" onclick="event.stopPropagation(); speakText('${item.word.replace(/'/g, "\\'")}')">
+                🔊 Nghe phát âm
               </button>
             </div>
-            <div style="border-top:1px dashed var(--border); padding-top:10px; font-size:13.5px; color:var(--text-secondary); text-align:center;">
-              <strong>Câu ví dụ trong đề:</strong><br/>
-              <em>"${(item.example || '').replace(new RegExp('\\b' + item.word + '\\b', 'gi'), '<strong style=\"color:#60a5fa;\">$&</strong>')}"</em>
-              <div style="font-size:11.5px; color:var(--text-muted); margin-top:8px;">👆 Chạm vào thẻ để lật xem nghĩa & phân tích</div>
+            <div class="flashcard-example-box">
+              <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-muted); font-weight:700; margin-bottom:4px;">Ví dụ trong đề thi:</div>
+              <div style="font-size:13.5px; color:var(--text-secondary); line-height:1.45;">
+                "${(item.example || '').replace(new RegExp('\\b' + item.word + '\\b', 'gi'), '<strong style=\"color:#60a5fa;\">$&</strong>')}"
+              </div>
+            </div>
+            <div style="font-size:11.5px; color:var(--text-muted); text-align:center; margin-top:6px;">
+              👆 Chạm vào thẻ để lật xem nghĩa & phân tích
             </div>
           </div>
 
@@ -658,29 +657,34 @@
                 ${isMastered ? '⭐ Đã thuộc' : '☆ Đánh dấu đã thuộc'}
               </button>
             </div>
-            <div style="padding:10px 0;">
+            <div style="padding:6px 0;">
               <div class="flashcard-meaning">${item.meaning}</div>
-              ${item.collocation ? `<div style="font-size:13.5px; margin-bottom:8px;"><strong>Cụm từ hay gặp:</strong> <code style="color:#fbbf24;">${item.collocation}</code></div>` : ''}
-              <div style="font-size:13px; color:#cbd5e1; font-style:italic;">"${item.exampleVi || ''}"</div>
+              ${item.collocation ? `<div style="font-size:13px; margin-bottom:6px;"><strong>Cụm từ hay gặp:</strong> <code style="color:#fbbf24;">${item.collocation}</code></div>` : ''}
+              <div style="font-size:12.5px; color:#cbd5e1; font-style:italic;">"${item.exampleVi || ''}"</div>
             </div>
             ${item.distractors && item.distractors.length ? `
-              <div style="background:rgba(0,0,0,0.25); border-radius:10px; padding:8px 12px; font-size:12px;">
-                <strong style="color:#f87171;">⚠️ Các từ dễ gây nhầm lẫn:</strong><br/>
-                ${item.distractors.map(d => `• <strong>${d.word}</strong>: ${d.meaning}`).join('<br/>')}
+              <div style="background:rgba(0,0,0,0.35); border-radius:10px; padding:8px 12px; font-size:11.5px; margin-top:4px;">
+                <strong style="color:#f87171;">⚠️ Từ dễ nhầm lẫn:</strong>
+                <div style="margin-top:2px; line-height:1.4;">
+                  ${item.distractors.map(d => `• <strong>${d.word}</strong>: ${d.meaning}`).join('<br/>')}
+                </div>
               </div>
-            ` : '<div style="font-size:11.5px; color:var(--text-muted); text-align:center;">👆 Chạm để lật lại mặt trước</div>'}
+            ` : ''}
+            <div style="font-size:11.5px; color:var(--text-muted); text-align:center; margin-top:6px;">
+              👆 Chạm để lật lại mặt trước
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Flashcard Controls -->
       <div class="flashcard-nav">
-        <button class="btn-outline" onclick="prevFlashcard(${filtered.length})">⬅️ Thẻ trước</button>
-        <button class="btn-primary" onclick="toggleMasteredVocab('${item.id}')">
-          ${isMastered ? '✓ Đã thuộc' : '⭐ Đánh dấu đã thuộc'}
+        <button class="btn-outline btn-sm" onclick="prevFlashcard(${filtered.length})">⬅️ Thẻ trước</button>
+        <button class="${isMastered ? 'btn-outline btn-sm' : 'btn-primary btn-sm'}" onclick="toggleMasteredVocab('${item.id}')">
+          ${isMastered ? '✓ Đã thuộc' : '⭐ Đánh dấu thuộc'}
         </button>
-        <button class="btn-outline" onclick="shuffleFlashcards(${filtered.length})">🔀 Trộn ngẫu nhiên</button>
-        <button class="btn-primary" onclick="nextFlashcard(${filtered.length})">Thẻ tiếp ➡️</button>
+        <button class="btn-outline btn-sm" onclick="shuffleFlashcards(${filtered.length})">🔀 Ngẫu nhiên</button>
+        <button class="btn-primary btn-sm" onclick="nextFlashcard(${filtered.length})">Thẻ tiếp ➡️</button>
       </div>
     `;
   }
